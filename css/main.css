@@ -1,0 +1,48 @@
+#navigation-bar {
+    background: #282C34;
+    width: 100%;
+    display: inline-block;
+}
+
+#navigation-bar-content {
+   margin: 0% 5%;
+}
+
+#navigation-bar-items {
+    padding: 5px 5px;   
+}
+
+#navigation-bar .nav-item {
+    margin: 0px 2px;
+}
+
+#main-content-area {
+    width: 90%;
+    margin: 5px 5%;
+    margin-bottom: 50px;
+}
+
+#home-content {
+    margin: 15px 0px;
+}
+
+#home-image {
+    width:100%;
+}
+
+.footer {
+    background: #282C34;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.footer .container {
+    text-align: center;
+}
+
+body {
+    overflow-y: scroll; 
+}
