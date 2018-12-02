@@ -1,6 +1,4 @@
 <?php 
-include('../php/variables.php');
-
 $title = 'Textbook Directory';
 ?>
 <!DOCTYPE html>

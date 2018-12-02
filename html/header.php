@@ -1,11 +1,11 @@
 <?php
-include('../php/database.php');
-include('../php/variables.php');
-
 //don't let the user view this page directly
 if(strpos($_SERVER['REQUEST_URI'], 'header')) {
     header('Location: home.php'); 
 }
+
+include('../php/database.php');
+include('../php/variables.php');
 
 //the $title varaible is set in the root page that includes this file
 ?>
@@ -19,8 +19,3 @@ if(strpos($_SERVER['REQUEST_URI'], 'header')) {
 <script src="../script/popper.min.js"></script>
 <script src="../script/bootstrap.min.js"></script>
 <script src="../script/main.js"></script>
-<script>
-$(document).ready( function() {
-    //alert('Example of a basic alert box in jquery', 'jquery basic alert box');
-});
-</script>
