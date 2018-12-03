@@ -6,6 +6,6 @@ if(strpos($_SERVER['REQUEST_URI'], 'footer')) {
 ?>
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">All content in this website falls under the GPL.</span>
+        <span class="text-muted">Source code for the website available at <a href="https://github.com/ChrisMcMahon123/Web-Project" target="_blank" rel="noopener noreferrer">https://github.com/ChrisMcMahon123/Web-Project</a></span>
     </div>
 </footer>

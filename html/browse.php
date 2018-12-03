@@ -10,12 +10,14 @@ $title = 'Browse Textbooks';
 <?php include('navigation.php'); ?>
 
 <div id="main-content-area">
+    <?php include('error_codes.php'); ?>
+
     <nav class="nav flex-column flex-sm-row ">
         <div class="flex-sm-fill m-2">
             <ul class="list-group">
                 <li class="list-group-item active" style="z-index: 0;">Search</li>
                 <li id="search-form" class="list-group-item">
-                    <form name="search" action="../php/search-script.php" onsubmit="return validateSearch()" method="post">
+                    <form name="search" action="../php/form_search.php" onsubmit="return validateSearch()" method="post">
                         <div class="form-group">
                             <label for="title-search">Textbook Title</label>
                             <input id="title-search" type="text" class="form-control" name="title" placeholder="Title">
@@ -29,7 +31,7 @@ $title = 'Browse Textbooks';
                             <input id="author-search" type="text" class="form-control" name="author" placeholder="Joe Smith">
                         </div>
                         <?php 
-                            include("category-dropdown.php");
+                            include('category_dropdown.php');
                         ?>
                         <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Search</button>
                     </form>  
@@ -42,6 +44,7 @@ $title = 'Browse Textbooks';
             <ul class="list-group">
                 <li class="list-group-item active" style="z-index: 0;">Directory</li>
                 <li id="search-results" class="list-group-item">
+                AJAX STUFFs
                 </li>
             </ul>
         </div>  

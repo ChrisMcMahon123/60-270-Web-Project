@@ -25,6 +25,9 @@ if(isset($_POST['email']) && isset($_POST['password']) && false) {
         $_SESSION['logged_in_flag'] = true;
         $_SESSION['username'] = 'Chris McMahon';
         $_SESSION['access_level'] = 'Admin';
+        $_SESSION['date_created'] = '2018-11-04';
+        $_SESSION['user_avatar'] = '../image/textbook1.jpg';
+        $_SESSION['email'] = 'mcmah113@uwindsor.ca';
 
         //header('Location: ../html/account.php');
     }
@@ -37,6 +40,10 @@ else {
     $_SESSION['logged_in_flag'] = true;
     $_SESSION['username'] = 'Chris McMahon';
     $_SESSION['access_level'] = 'Admin';
+    $_SESSION['date_created'] = '2018-11-04';
+    $_SESSION['user_avatar'] = '../image/textbook1.jpg';
+    $_SESSION['email'] = 'mcmah113@uwindsor.ca';
+
     //echo 'form not filled out';
     //login form not filled out properly
     header('Location: ../html/account.php');

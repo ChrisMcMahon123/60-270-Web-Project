@@ -58,7 +58,7 @@ if(strpos($_SERVER['REQUEST_URI'], 'navigation')) {
           } ?>
           <div id="account-dropdown-menu" class="dropdown-menu">
             <a class="dropdown-item" href="account.php">Account Details</a>
-            <a class="dropdown-item" href="../php/logout-script.php">Logout</a>
+            <a class="dropdown-item" href="../php/form_logout.php">Logout</a>
           </div>
         <?php
         } 

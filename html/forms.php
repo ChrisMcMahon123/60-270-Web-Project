@@ -15,12 +15,14 @@ if($_SESSION['logged_in_flag']) {
 <?php include('navigation.php'); ?>
 
 <div id="main-content-area">
+    <?php include('error_codes.php'); ?>
+
     <nav class="nav flex-column flex-sm-row ">
         <div class="flex-sm-fill m-2">
             <ul class="list-group">
                 <li class="list-group-item active">Sign Up</li>
                 <li id="signup-form" class="list-group-item">
-                    <form name="signup" action="../php/signup-script.php" onsubmit="return validateSignUp()" method="post">
+                    <form name="signup" action="../php/form_signup.php" onsubmit="return validateSignUp()" method="post">
                         <div class="form-group">
                             <label for="name-signup">Name</label>
                             <input id="name-signup" type="text" class="form-control" name="name" placeholder="Joe Smith">
@@ -40,13 +42,13 @@ if($_SESSION['logged_in_flag']) {
                         </div>
                         <div class="form-group">
                             <label for="password-input">Password</label>
-                            <input id="password-input" type="password" class="form-control" onchange="checkPasswords()" name="password" placeholder="Password">
+                            <input id="password-input" type="password" class="form-control" onkeyup="checkPasswords()" name="password" placeholder="Password">
                             <div id="password-input-hint" class="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password-confirm">Confirm Password</label>
-                            <input id="password-confirm" type="password" class="form-control" onchange="checkPasswords()" name="password-confirm" placeholder="Password">
+                            <input id="password-confirm" type="password" class="form-control" onkeyup="checkPasswords()" name="password-confirm" placeholder="Confirm Password">
                             <div id="password-confirm-hint" class="">
                             </div>
                         </div>
@@ -59,7 +61,7 @@ if($_SESSION['logged_in_flag']) {
             <ul class="list-group">
                 <li class="list-group-item active">Login</li>
                 <li id="login-form" class="list-group-item">
-                    <form name="login" action="../php/login-script.php" onsubmit="return validateLogin()" method="post">
+                    <form name="login" action="../php/form_login.php" onsubmit="return validateLogin()" method="post">
                         <div class="form-group">
                             <label for="email-login">Email Address</label>
                             <input id="email-login" type="email" class="form-control" name="email" placeholder="email@provider.com">

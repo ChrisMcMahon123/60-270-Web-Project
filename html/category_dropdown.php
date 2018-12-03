@@ -1,6 +1,6 @@
 <?php 
 //don't let the user view this page directly
-if(strpos($_SERVER['REQUEST_URI'], 'category-dropdown')) {
+if(strpos($_SERVER['REQUEST_URI'], 'category_dropdown')) {
     header('Location: home.php'); 
 }
 ?>
@@ -11,11 +11,11 @@ if(strpos($_SERVER['REQUEST_URI'], 'category-dropdown')) {
     <div id="category-dropdown-menu" class="dropdown-menu" role="menu" style="z-index: 100;">
         <?php
         //get all categories from the database and add them to the dropdown menu
-        $categoriesSQL =   'SELECT 
-                                name 
-                            FROM 
-                                categories
-                            ';
+        $categoriesSQL='SELECT 
+                            name 
+                        FROM 
+                            categories
+                        ';
 
         try {
             $databaseQuery = $databaseConnection->prepare($categoriesSQL);
@@ -48,5 +48,5 @@ if(strpos($_SERVER['REQUEST_URI'], 'category-dropdown')) {
 ?>
 </select> 
 <?php
-unset($data, $row, $itemId);
+unset($categoriesSQL, $data, $row, $itemId, $databaseQuery);
 ?>

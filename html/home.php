@@ -10,6 +10,8 @@ $title = 'Textbook Directory';
 <?php include('navigation.php'); ?>
 
 <div id="main-content-area">
+    <?php include('error_codes.php'); ?>
+
     <nav class="nav flex-column flex-sm-row ">
         <div class="flex-sm-fill m-2">
             <img id="home-image" src="../image/textbook2.jpg" alt="Main Image"/>
