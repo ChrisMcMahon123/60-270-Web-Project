@@ -3,7 +3,13 @@
 include('variables.php');
 
 $_SESSION['logged_in_flag'] = false; 
-unset($_SESSION['user']);
 
-header('Location: ../html/home.php'); 
+unset($_SESSION['logged_in_flag']);
+unset($_SESSION['username']);
+unset($_SESSION['user_avatar']);
+unset($_SESSION['access_level']);
+unset($_SESSION['email']);
+unset($_SESSION['date_created']);
+
+header('Location: ../html/home.php?code=6'); 
 ?>

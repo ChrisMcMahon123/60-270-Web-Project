@@ -32,10 +32,10 @@ if(!$_SESSION['logged_in_flag']) {
                                 <span style="font-weight: bold; margin-right: 5px;">Email: </span><?php echo $_SESSION['email']; ?>
                             </div>
                             <div>
-                                <span style="font-weight: bold; margin-right: 5px;">Type: </span><?php echo $_SESSION['access_level']; ?>
+                                <span style="font-weight: bold; margin-right: 5px;">Created On: </span><?php echo $_SESSION['date_created']; ?>
                             </div>
                             <div>
-                                <span style="font-weight: bold; margin-right: 5px;">Created On: </span> <?php echo $_SESSION['date_created']; ?>
+                                <span style="font-weight: bold; margin-right: 5px;">Type: </span> <?php echo $_SESSION['access_level']; ?>
                             </div>
                         </div>
                     </nav>
@@ -48,7 +48,7 @@ if(!$_SESSION['logged_in_flag']) {
             <ul class="list-group">
                 <li class="list-group-item active">Update Account Details</li>
                 <li class="list-group-item">
-                    <form nid="account-form" name="account-form" action="../php/form_account.php" onsubmit="return validateAccountForm(this)" method="post" enctype="multipart/form-data">
+                    <form id="account-form" name="account-form" action="../php/form_account.php" onsubmit="return validateAccountForm(this)" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name-input">Name</label>
                             <input id="name-input" type="text" class="form-control" name="name" placeholder="<?php echo $_SESSION['username']; ?>">
@@ -60,7 +60,7 @@ if(!$_SESSION['logged_in_flag']) {
                                 <span class="input-group-text">Avatar Image</span>
                             </div>
                             <div class="custom-file">
-                                <input type="file" accept="image/*" class="custom-file-input form-control" name="image" onchange="displayFileName(this.value,'image-avatar-label')" id="image-avatar">
+                                <input type="file" accept="image/*" class="custom-file-input form-control" name="avatar" onchange="displayFileName(this.value,'image-avatar-label')" id="image-avatar">
                                 <label id="image-avatar-label" class="custom-file-label" for="image-avatar">Select File</label>
                             </div>
                         </div>
@@ -76,9 +76,9 @@ if(!$_SESSION['logged_in_flag']) {
                             <div id="password-confirm-hint" class="">
                             </div>
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Update</button>
-                    </form>             
+
+                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Update</button>                    </form>             
+                    </form>
                 </li>
             </ul>
         </div>

@@ -38,7 +38,16 @@ else {
     $response['type'] = false;
 }
 
-header('Content-Type: application/json');
-echo json_encode($response);
-exit;
+if($response["email"] && $response["message"] && $response["type"]) {
+    $response['form-valid'] = true;
+}
+else {
+    $response['form-valid'] = false;
+}
+
+if(isset($_POST['ajax']) && $_POST['ajax']) {
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+}
 ?>

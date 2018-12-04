@@ -1,5 +1,9 @@
 <?php
 //Global Variables
+
+//this value should match the one in php.ini and be smaller than the max size
+$maxFileSize = 4294967295;//4 gigs => max size of a longblob in MySQL
+
 if(!isset($_SESSION)) {
     session_start();
 }
@@ -12,6 +16,4 @@ $websiteName = 'Textbook Directory';
 $webmasterEmail = 'mcmah113@uwindsor.ca';
 $websiteOwner = 'Christopher McMahon';
 
-//the current page the user is viewing
-//$_SERVER['REQUEST_URI'];
 ?>
