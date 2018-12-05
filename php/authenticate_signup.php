@@ -1,6 +1,6 @@
 <?php 
-include('variables.php');
-include('database.php');
+require('variables.php');
+require('database.php');
 
 $response = [];
 

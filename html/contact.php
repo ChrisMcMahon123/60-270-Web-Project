@@ -4,19 +4,22 @@ $title = 'Contact Webmaster';
 <!DOCTYPE html>
 <html>
 <head>
-<?php include('header.php'); ?>
+<?php require('header.php'); ?>
 </head>
 <body>
-<?php include('navigation.php'); ?>
+<?php require('navigation.php'); ?>
 
 <div id="main-content-area">
-    <?php include('error_codes.php'); ?>
+    <?php require('error_codes.php'); ?>
     
     <nav class="nav flex-column flex-sm-row">
         <div class="flex-sm-fill m-2">
             <ul class="list-group">
-                <li class="list-group-item active">Contact Webmaster</li>
+                <li class="list-group-item active">Contact Us</li>
                 <li id="contact-form" class="list-group-item">
+                    <div style="margin-bottom: 15px;">
+                        <span style="font-weight: bold; margin-right: 5px;">Webmaster: </span> <?php echo $webMaster; ?>
+                    </div>
                     <form name="contact" action="../php/form_contact.php" onsubmit="return validateContact(this)" method="post">
                         <div class="form-group">
                             <label for="email-contact">Email Address</label>
@@ -63,6 +66,6 @@ $title = 'Contact Webmaster';
     </nav>
 </div>
 
-<?php include('footer.php'); ?>
+<?php require('footer.php'); ?>
 </body>
 </html>

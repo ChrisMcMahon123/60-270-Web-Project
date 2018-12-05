@@ -1,12 +1,11 @@
 <?php
-include('authenticate_signup.php');
+require('authenticate_signup.php');
 
 //validate the submitted form before updating account details
 if($response['form-valid']) {
     //insert the new user into the database
     try {
         $image = addslashes(file_get_contents($_FILES['avatar']['tmp_name']));
-        $code = 1;
         
         //Works but not using prepared statements...
         $signupSQL='INSERT INTO 
@@ -39,9 +38,9 @@ if($response['form-valid']) {
         header('Location: ../html/forms.php?code=4');
     }
     catch(PDOException $error) {
-        echo 'Connection failed: '.$error->getMessage();
         header('Location: ../html/forms.php?code=3');
-        echo  $signupSQL;
+        //echo 'Connection failed: '.$error->getMessage();
+        //echo  $signupSQL;
     }
 }
 else {

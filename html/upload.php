@@ -4,7 +4,7 @@ $title = 'Upload Textbooks';
 <!DOCTYPE html>
 <html>
 <head>
-<?php include('header.php'); 
+<?php require('header.php'); 
 
 if(!$_SESSION['logged_in_flag']) {
     header('Location: ../html/home.php'); 
@@ -12,31 +12,37 @@ if(!$_SESSION['logged_in_flag']) {
 ?>
 </head>
 <body>
-<?php include('navigation.php'); ?>
+<?php require('navigation.php'); ?>
 
 <div id="main-content-area">
-    <?php include('error_codes.php'); ?>
+    <?php require('error_codes.php'); ?>
 
     <nav class="nav flex-column flex-sm-row ">
         <div class="flex-sm-fill m-2">
             <ul class="list-group">
                 <li class="list-group-item active" style="z-index: 0;">Upload Textbook</li>
                 <li id="login-form" class="list-group-item">
-                    <form name="upload-textbook" action="../php/form_upload.php" onsubmit="return validateUploadForm()" method="post">
+                    <form name="upload-textbook" action="../php/form_upload.php" onsubmit="return validateUploadForm(this)" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="title-upload">Textbook Title</label>
                             <input id="title-upload" type="text" class="form-control" name="title" placeholder="Title">
+                            <div id="title-upload-hint" class="m-2">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="year-upload">Published Year</label>
-                            <input id="year-upload" type="text" class="form-control" name="year" placeholder="2007">
+                            <input id="year-upload" type="number" class="form-control" name="year" placeholder="2007">
+                            <div id="year-upload-hint" class="m-2">
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="email-upload">Author</label>
-                            <input id="email-upload" type="text" class="form-control" name="author" placeholder="Joe Smith">
+                            <label for="author-upload">Author</label>
+                            <input id="author-upload" type="text" class="form-control" name="author" placeholder="Joe Smith">
+                            <div id="author-upload-hint" class="m-2">
+                            </div>
                         </div>
                         <?php 
-                            include('category_dropdown.php');
+                            require('category_dropdown.php');
                         ?>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -56,7 +62,7 @@ if(!$_SESSION['logged_in_flag']) {
                                 <label id="cover-upload-label" class="custom-file-label" for="cover-upload">Select File</label>
                             </div>
                         </div>
-                        <small class="form-text text-muted">Thank you for contributing!</small>
+
                         <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Upload</button>
                     </form>   
                 </li>
@@ -65,6 +71,6 @@ if(!$_SESSION['logged_in_flag']) {
     </nav>
 </div>
 
-<?php include('footer.php'); ?>
+<?php require('footer.php'); ?>
 </body>
 </html>

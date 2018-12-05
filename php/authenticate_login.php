@@ -1,5 +1,5 @@
 <?php
-include('database.php');
+require('database.php');
 
 //validate the inputs for the contact form
 $response = [];

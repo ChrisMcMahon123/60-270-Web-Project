@@ -4,7 +4,7 @@ $title = 'Account Details';
 <!DOCTYPE html>
 <html>
 <head>
-<?php include('header.php');
+<?php require('header.php');
 
 //user needs to be logged in to view this page
 if(!$_SESSION['logged_in_flag']) {
@@ -13,10 +13,10 @@ if(!$_SESSION['logged_in_flag']) {
 ?>
 </head>
 <body>
-<?php include('navigation.php'); ?>
+<?php require('navigation.php'); ?>
 
 <div id="main-content-area">
-    <?php include('error_codes.php'); ?>
+    <?php require('error_codes.php'); ?>
 
     <nav class="nav flex-column flex-sm-row ">
         <div class="flex-sm-fill m-2">
@@ -51,7 +51,7 @@ if(!$_SESSION['logged_in_flag']) {
                     <form id="account-form" name="account-form" action="../php/form_account.php" onsubmit="return validateAccountForm(this)" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name-input">Name</label>
-                            <input id="name-input" type="text" class="form-control" name="name" placeholder="<?php echo $_SESSION['username']; ?>">
+                            <input id="name-input" type="text" class="form-control" name="name" placeholder="<?php echo $_SESSION['name']; ?>">
                             <div id="name-input-hint" class="">
                             </div>
                         </div>
@@ -85,6 +85,6 @@ if(!$_SESSION['logged_in_flag']) {
     </nav>
 </div>
 
-<?php include('footer.php'); ?>
+<?php require('footer.php'); ?>
 </body>
 </html>

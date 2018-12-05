@@ -4,13 +4,13 @@ $title = 'Textbook Directory';
 <!DOCTYPE html>
 <html>
 <head>
-<?php include('header.php'); ?>
+<?php require('header.php'); ?>
 </head>
 <body>
-<?php include('navigation.php'); ?>
+<?php require('navigation.php'); ?>
 
 <div id="main-content-area">
-    <?php include('error_codes.php'); ?>
+    <?php require('error_codes.php'); ?>
 
     <nav class="nav flex-column flex-sm-row ">
         <div class="flex-sm-fill m-2">
@@ -69,6 +69,6 @@ $title = 'Textbook Directory';
     </nav>
 </div>
 
-<?php include('footer.php'); ?>
+<?php require('footer.php'); ?>
 </body>
 </html>

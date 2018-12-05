@@ -4,13 +4,13 @@ $title = 'Browse Textbooks';
 <!DOCTYPE html>
 <html>
 <head>
-<?php include('header.php'); ?>
+<?php require('header.php'); ?>
 </head>
 <body>
-<?php include('navigation.php'); ?>
+<?php require('navigation.php'); ?>
 
 <div id="main-content-area">
-    <?php include('error_codes.php'); ?>
+    <?php require('error_codes.php'); ?>
 
     <nav class="nav flex-column flex-sm-row ">
         <div class="flex-sm-fill m-2">
@@ -31,7 +31,7 @@ $title = 'Browse Textbooks';
                             <input id="author-search" type="text" class="form-control" name="author" placeholder="Joe Smith">
                         </div>
                         <?php 
-                            include('category_dropdown.php');
+                            require('category_dropdown.php');
                         ?>
                         <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Search</button>
                     </form>  
@@ -50,6 +50,6 @@ $title = 'Browse Textbooks';
         </div>  
     </nav>
 </div>
-<?php include('footer.php'); ?>
+<?php require('footer.php'); ?>
 </body>
 </html>

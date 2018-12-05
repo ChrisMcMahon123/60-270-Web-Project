@@ -1,3 +1,8 @@
+/*
+====================================================================================
+UI Updating functions
+====================================================================================
+*/
 var categoryArray;
 
 $(document).ready(function () {
@@ -68,6 +73,91 @@ function displayFileName(value, id) {
     }
 }
 
+//called when password & password-confirm fields are updated on keyup
+function checkPasswords() {
+    var password = $("#password-input").val();
+    var passwordConfirm = $("#password-confirm").val();
+
+    $("#password-input").removeClass("is-valid is-invalid");
+    $("#password-confirm").removeClass("is-valid is-invalid");
+
+    $("#password-input-hint").removeClass("valid-feedback invalid-feedback");
+    $("#password-confirm-hint").removeClass("valid-feedback invalid-feedback");
+    $("#password-input-hint").text("");
+    $("#password-confirm-hint").text("");
+
+    if (password != "" && passwordConfirm != "") {
+        if (password === passwordConfirm) {
+            $("#password-input").addClass("is-valid");
+            $("#password-confirm").addClass("is-valid");
+
+            $("#password-input-hint").addClass("valid-feedback");
+            $("#password-confirm-hint").addClass("valid-feedback");
+            $("#password-input-hint").text("Passwords Match");
+            $("#password-confirm-hint").text("Passwords Match");
+        }
+        else {
+            $("#password-input").addClass("is-invalid");
+            $("#password-confirm").addClass("is-invalid");
+
+            $("#password-input-hint").addClass("invalid-feedback");
+            $("#password-confirm-hint").addClass("invalid-feedback");
+            $("#password-input-hint").text("Passwords Dont Match");
+            $("#password-confirm-hint").text("Passwords Dont Match");
+        }
+    }
+}
+/*
+====================================================================================
+Validation functions - all call ajax functions and wait for them to complete
+====================================================================================
+*/
+function validateContact(form) {
+    $.when(contactAjaxCall())
+        .done(function (result) {
+            //console.log(result);
+
+            if (result["form-valid"]) {
+                form.submit();
+            }
+            else {
+                //form submission is not valid, give user feedback
+                $("#email-contact").removeClass("is-valid is-invalid");
+                $("#email-contact-hint").removeClass("valid-feedback invalid-feedback");
+                $("#email-contact-hint").text("");
+
+                $("#message-contact").removeClass("is-valid is-invalid");
+                $("#message-contact-hint").removeClass("valid-feedback invalid-feedback");
+                $("#message-contact-hint").text("");
+
+                if (result["email"]) {
+                    $("#email-contact").addClass("is-valid");
+                    $("#email-contact-hint").addClass("valid-feedback");
+                    $("#email-contact-hint").text("Email Address is Valid");
+                }
+                else {
+                    $("#email-contact").addClass("is-invalid");
+                    $("#email-contact-hint").addClass("invalid-feedback");
+                    $("#email-contact-hint").text("Email Address is Invalid");
+                }
+
+                if (result["message"]) {
+                    $("#message-contact").addClass("is-valid");
+                    $("#message-contact-hint").addClass("valid-feedback");
+                }
+                else {
+                    $("#message-contact").addClass("is-invalid");
+                    $("#message-contact-hint").addClass("invalid-feedback");
+                    $("#message-contact-hint").text("Required");
+                }
+
+                return false;
+            }
+        });
+
+    return false;
+}
+
 function validateAccountForm(form) {
     $.when(accountAjaxCall())
         .done(function (result) {
@@ -75,7 +165,7 @@ function validateAccountForm(form) {
 
             if (result["form-valid"]) {
                 console.log(form);
-                alert("check form");
+                //alert("check form");
                 form.submit();
             }
             else {
@@ -103,89 +193,6 @@ function validateAccountForm(form) {
 
                     $("#name-input-hint").addClass("invalid-feedback");
                     $("#name-input-hint").text("Required");
-                }
-
-                if (result["avatar"]) {
-                    $("#image-avatar").addClass("is-valid");
-                }
-                else {
-                    $("#image-avatar").addClass("is-invalid");
-                    alert(result["avatar_message"]);
-                }
-
-                displayPasswordValidationResults(result);
-            }
-
-            return false;
-        });
-
-    return false;
-}
-
-function validateUploadForm() {
-    return true;
-}
-
-function validateSignUp(form) {
-    $.when(signupAjaxCall())
-        .done(function (result) {
-            console.log(result);
-
-            if (result["form-valid"]) {
-                console.log(form);
-                form.submit();
-            }
-            else {
-                //form submission is not valid, give user feedback
-                $("#email-signup").removeClass("is-valid is-invalid");
-                $("#email-signup-hint").removeClass("valid-feedback invalid-feedback");
-                $("#email-signup-hint").text("");
-
-                $("#name-signup").removeClass("is-valid is-invalid");
-                $("#name-signup-hint").removeClass("valid-feedback invalid-feedback");
-                $("#name-signup-hint").text("");
-
-                $("#image-avatar").removeClass("is-valid is-invalid");
-
-                $("#password-input").removeClass("is-valid is-invalid");
-                $("#password-confirm").removeClass("is-valid is-invalid");
-                $("#password-input-hint").removeClass("valid-feedback invalid-feedback");
-                $("#password-confirm-hint").removeClass("valid-feedback invalid-feedback");
-                $("#password-input-hint").text("");
-                $("#password-confirm-hint").text("");
-
-                if (result["email"] === 1) {
-                    $("#email-signup").addClass("is-valid");
-                    $("#email-signup-hint").addClass("valid-feedback");
-                    $("#email-signup-hint").text("Email Address is Valid and Unique");
-                }
-                else if (result["email"] === 0) {
-                    $("#email-signup").addClass("is-invalid");
-                    $("#email-signup-hint").addClass("invalid-feedback");
-                    $("#email-signup-hint").text("Email Address is Invalid");
-                }
-                else if (result["email"] === -1) {
-                    $("#email-signup").addClass("is-invalid");
-                    $("#email-signup-hint").addClass("invalid-feedback");
-                    $("#email-signup-hint").text("An Account is Already using this Email Address");
-                }
-                else if (result["email"] === -2) {
-                    $("#email-signup").addClass("is-invalid");
-                    $("#email-signup-hint").addClass("invalid-feedback");
-                    $("#email-signup-hint").text("Internal Server Error");
-                }
-
-                if (result["name"]) {
-                    $("#name-signup").addClass("is-valid");
-
-                    $("#name-signup-hint").addClass("valid-feedback");
-                    $("#name-signup-hint").text("Name is Valid");
-                }
-                else {
-                    $("#name-signup").addClass("is-invalid");
-
-                    $("#name-signup-hint").addClass("invalid-feedback");
-                    $("#name-signup-hint").text("Required");
                 }
 
                 if (result["avatar"]) {
@@ -261,51 +268,181 @@ function validateLogin(form) {
                     $("#password-login-hint").addClass("invalid-feedback");
                     $("#password-login-hint").text("Internal Server Error");
                 }
-            }
 
-            return false;
+                return false;
+            }
         });
 
     return false;
 }
 
-function validateContact(form) {
-    $.when(contactAjaxCall())
+function validateSignUp(form) {
+    $.when(signupAjaxCall())
         .done(function (result) {
-            //console.log(result);
+            console.log(result);
 
             if (result["form-valid"]) {
+                console.log(form);
                 form.submit();
             }
             else {
                 //form submission is not valid, give user feedback
-                $("#email-contact").removeClass("is-valid is-invalid");
-                $("#email-contact-hint").removeClass("valid-feedback invalid-feedback");
-                $("#email-contact-hint").text("");
+                $("#email-signup").removeClass("is-valid is-invalid");
+                $("#email-signup-hint").removeClass("valid-feedback invalid-feedback");
+                $("#email-signup-hint").text("");
 
-                $("#message-contact").removeClass("is-valid is-invalid");
-                $("#message-contact-hint").removeClass("valid-feedback invalid-feedback");
-                $("#message-contact-hint").text("");
+                $("#name-signup").removeClass("is-valid is-invalid");
+                $("#name-signup-hint").removeClass("valid-feedback invalid-feedback");
+                $("#name-signup-hint").text("");
 
-                if (result["email"]) {
-                    $("#email-contact").addClass("is-valid");
-                    $("#email-contact-hint").addClass("valid-feedback");
-                    $("#email-contact-hint").text("Email Address is Valid");
+                $("#image-avatar").removeClass("is-valid is-invalid");
+
+                $("#password-input").removeClass("is-valid is-invalid");
+                $("#password-confirm").removeClass("is-valid is-invalid");
+                $("#password-input-hint").removeClass("valid-feedback invalid-feedback");
+                $("#password-confirm-hint").removeClass("valid-feedback invalid-feedback");
+                $("#password-input-hint").text("");
+                $("#password-confirm-hint").text("");
+
+                if (result["email"] === 1) {
+                    $("#email-signup").addClass("is-valid");
+                    $("#email-signup-hint").addClass("valid-feedback");
+                    $("#email-signup-hint").text("Email Address is Valid and Unique");
+                }
+                else if (result["email"] === 0) {
+                    $("#email-signup").addClass("is-invalid");
+                    $("#email-signup-hint").addClass("invalid-feedback");
+                    $("#email-signup-hint").text("Email Address is Invalid");
+                }
+                else if (result["email"] === -1) {
+                    $("#email-signup").addClass("is-invalid");
+                    $("#email-signup-hint").addClass("invalid-feedback");
+                    $("#email-signup-hint").text("An Account is Already using this Email Address");
+                }
+                else if (result["email"] === -2) {
+                    $("#email-signup").addClass("is-invalid");
+                    $("#email-signup-hint").addClass("invalid-feedback");
+                    $("#email-signup-hint").text("Internal Server Error");
+                }
+
+                if (result["name"]) {
+                    $("#name-signup").addClass("is-valid");
+
+                    $("#name-signup-hint").addClass("valid-feedback");
+                    $("#name-signup-hint").text("Name is Valid");
                 }
                 else {
-                    $("#email-contact").addClass("is-invalid");
-                    $("#email-contact-hint").addClass("invalid-feedback");
-                    $("#email-contact-hint").text("Email Address is Invalid");
+                    $("#name-signup").addClass("is-invalid");
+
+                    $("#name-signup-hint").addClass("invalid-feedback");
+                    $("#name-signup-hint").text("Required");
                 }
 
-                if (result["message"]) {
-                    $("#message-contact").addClass("is-valid");
-                    $("#message-contact-hint").addClass("valid-feedback");
+                if (result["avatar"]) {
+                    $("#image-avatar").addClass("is-valid");
                 }
                 else {
-                    $("#message-contact").addClass("is-invalid");
-                    $("#message-contact-hint").addClass("invalid-feedback");
-                    $("#message-contact-hint").text("Required");
+                    $("#image-avatar").addClass("is-invalid");
+                    alert(result["avatar_message"]);
+                }
+
+                displayPasswordValidationResults(result);
+
+                return false;
+            }
+        });
+
+    return false;
+}
+
+function validateUploadForm(form) {
+    $.when(uploadAjaxCall())
+        .done(function (result) {
+            console.log(result);
+
+            if (result["form-valid"]) {
+                console.log(form);
+                //alert("check form");
+                form.submit();
+            }
+            else {
+                $("#title-upload").removeClass("is-valid is-invalid");
+                $("#title-upload-hint").removeClass("valid-feedback invalid-feedback");
+                $("#title-upload-hint").text("");
+
+                $("#year-upload").removeClass("is-valid is-invalid");
+                $("#year-upload-hint").removeClass("valid-feedback invalid-feedback");
+                $("#year-upload-hint").text("");
+
+                $("#author-upload").removeClass("is-valid is-invalid");
+                $("#author-upload-hint").removeClass("valid-feedback invalid-feedback");
+                $("#author-upload-hint").text("");
+
+                $("#category-search-hint").removeClass("valid-feedback-custom invalid-feedback-custom");
+                $("#category-search-hint").html("");
+
+                $("#file-upload").removeClass("is-valid is-invalid");
+
+                $("#cover-upload").removeClass("is-valid is-invalid");
+
+                if (result['title']) {
+                    $("#title-upload").addClass("is-valid");
+                    $("#title-upload-hint").addClass("valid-feedback");
+                    $("#title-upload-hint").text("Textbook Title is Valid");
+                }
+                else {
+                    $("#title-upload").addClass("is-invalid");
+                    $("#title-upload-hint").addClass("invalid-feedback");
+                    $("#title-upload-hint").text("Required");
+                }
+
+                if (result['year'] == 1) {
+                    $("#year-upload").addClass("is-valid");
+                    $("#year-upload-hint").addClass("valid-feedback");
+                    $("#year-upload-hint").text("Published Year is Valid");
+                }
+                else {
+                    if (result['year'] == 0) {
+                        //not filled out
+                        $("#year-upload").addClass("is-invalid");
+                        $("#year-upload-hint").addClass("invalid-feedback");
+                        $("#year-upload-hint").text("Required");
+                    }
+                    else {
+                        //invalid
+                        $("#year-upload").addClass("is-invalid");
+                        $("#year-upload-hint").addClass("invalid-feedback");
+                        $("#year-upload-hint").text("Must be a Valid Year between 1900 and 2019");
+                    }
+                }
+
+                if (result['author']) {
+                    $("#author-upload").addClass("is-valid");
+                    $("#author-upload-hint").addClass("valid-feedback");
+                    $("#author-upload-hint").text("Author is Valid");
+                }
+                else {
+                    $("#author-upload").addClass("is-invalid");
+                    $("#author-upload-hint").addClass("invalid-feedback");
+                    $("#author-upload-hint").text("Required");
+                }
+
+                displayCategoryValidationResults(result);
+
+                if (result['cover']) {
+                    $("#cover-upload").addClass("is-valid");
+                }
+                else {
+                    $("#cover-upload").addClass("is-invalid");
+                    alert(result["cover_message"]);
+                }
+
+                if (result['file']) {
+                    $("#file-upload").addClass("is-valid");
+                }
+                else {
+                    $("#file-upload").addClass("is-invalid");
+                    alert(result["file_message"]);
                 }
 
                 return false;
@@ -315,6 +452,15 @@ function validateContact(form) {
     return false;
 }
 
+function validateSearch() {
+    return true;
+}
+
+/*
+====================================================================================
+Ajax functions
+====================================================================================
+*/
 function contactAjaxCall() {
     return $.ajax({
         url: "../php/authenticate_contact.php",
@@ -394,44 +540,33 @@ function signupAjaxCall() {
         }
     });
 }
-function validateSearch() {
-    return true;
+
+function uploadAjaxCall() {
+    //when dealing with files, need to use FormData 
+    var formData = new FormData();
+    formData.append("title", $("#title-upload").val());
+    formData.append("year", $("#year-upload").val());
+    formData.append("author", $("#author-upload").val());
+    formData.append("category", $("#category-search").val());
+    formData.append("file", $("input[type=file]")[0].files[0]);
+    formData.append("cover", $("input[type=file]")[1].files[0]);
+    formData.append("ajax", true);
+
+    return $.ajax({
+        url: "../php/authenticate_upload.php",
+        type: "POST",
+        dataType: "json",
+        data: formData,
+        type: "POST",
+        contentType: false,
+        processData: false,
+        error: function (event, jqxhr, settings, thrownError) {
+            console.log(event + " | " + jqxhr + " | " + settings + " | " + thrownError);
+        }
+    });
 }
 
-function checkPasswords() {
-    var password = $("#password-input").val();
-    var passwordConfirm = $("#password-confirm").val();
-
-    $("#password-input").removeClass("is-valid is-invalid");
-    $("#password-confirm").removeClass("is-valid is-invalid");
-
-    $("#password-input-hint").removeClass("valid-feedback invalid-feedback");
-    $("#password-confirm-hint").removeClass("valid-feedback invalid-feedback");
-    $("#password-input-hint").text("");
-    $("#password-confirm-hint").text("");
-
-    if (password != "" && passwordConfirm != "") {
-        if (password === passwordConfirm) {
-            $("#password-input").addClass("is-valid");
-            $("#password-confirm").addClass("is-valid");
-
-            $("#password-input-hint").addClass("valid-feedback");
-            $("#password-confirm-hint").addClass("valid-feedback");
-            $("#password-input-hint").text("Passwords Match");
-            $("#password-confirm-hint").text("Passwords Match");
-        }
-        else {
-            $("#password-input").addClass("is-invalid");
-            $("#password-confirm").addClass("is-invalid");
-
-            $("#password-input-hint").addClass("invalid-feedback");
-            $("#password-confirm-hint").addClass("invalid-feedback");
-            $("#password-input-hint").text("Passwords Dont Match");
-            $("#password-confirm-hint").text("Passwords Dont Match");
-        }
-    }
-}
-
+//used by the validation functions to update feedback on attempted form submission
 function displayPasswordValidationResults(result) {
     if (result['password-compare']) {
         $("#password-input").addClass("is-valid");
@@ -477,5 +612,33 @@ function displayPasswordValidationResults(result) {
             $("#password-input-hint").text("Required");
             $("#password-confirm-hint").text("Required");
         }
+    }
+}
+
+function displayCategoryValidationResults(result) {
+    if (result['category'] == 2) {
+        //valid, new category
+        $("#category-search-hint").html("New Category will be Created");
+        $("#category-search-hint").addClass("valid-feedback-custom");
+    }
+    else if (result['category'] == 1) {
+        //valid, exisitng category
+        $("#category-search-hint").html("Category is Valid");
+        $("#category-search-hint").addClass("valid-feedback-custom");
+    }
+    else if (result['category'] == 0) {
+        //not filled out
+        $("#category-search-hint").html("Required");
+        $("#category-search-hint").addClass("invalid-feedback-custom");
+    }
+    else if (result['category'] == -1) {
+        //no authority to create new category
+        $("#category-search-hint").html("Not Allowed to Create New Category");
+        $("#category-search-hint").addClass("invalid-feedback-custom");
+    }
+    else if (result['category'] == -2) {
+        //no authority to create new category
+        $("#category-search-hint").html("Internal Server Error");
+        $("#category-search-hint").addClass("invalid-feedback-custom");
     }
 }

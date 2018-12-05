@@ -1,5 +1,5 @@
 <?php 
-include('variables.php');
+require('variables.php');
 
 $response = [];
 

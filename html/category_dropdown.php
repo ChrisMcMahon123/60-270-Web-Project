@@ -5,8 +5,8 @@ if(strpos($_SERVER['REQUEST_URI'], 'category_dropdown')) {
 }
 ?>
 <div class="form-group">
-    <label for="category-search">Category</label>
-    <input id="category-search" type="text" class="form-control dropdown-toggle" data-toggle="dropdown" name="category" autocomplete="off" placeholder="Category"  onkeyup="filterCategories(this.value)">
+    <label for="category-search">Category<div id="category-search-hint"></div></label>
+    <input id="category-search" type="text" class="form-control dropdown-toggle" data-toggle="dropdown" name="category" autocomplete="off" placeholder="Category"  onkeyup="filterCategories(this.value)" required="required">
 
     <div id="category-dropdown-menu" class="dropdown-menu" role="menu" style="z-index: 100;">
         <?php

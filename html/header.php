@@ -4,8 +4,8 @@ if(strpos($_SERVER['REQUEST_URI'], 'header')) {
     header('Location: home.php'); 
 }
 
-include('../php/database.php');
-include('../php/variables.php');
+require('../php/database.php');
+require('../php/variables.php');
 
 //the $title varaible is set in the root page that includes this file
 ?>
