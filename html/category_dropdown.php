@@ -1,20 +1,21 @@
 <?php 
 //don't let the user view this page directly
 if(strpos($_SERVER['REQUEST_URI'], 'category_dropdown')) {
-    header('Location: home.php'); 
+    header('Location: home.php?code=14'); 
 }
 ?>
 <div class="form-group">
     <label for="category-search">Category<div id="category-search-hint"></div></label>
     <input id="category-search" type="text" class="form-control dropdown-toggle" data-toggle="dropdown" name="category" autocomplete="off" placeholder="Category"  onkeyup="filterCategories(this.value)" required="required">
 
-    <div id="category-dropdown-menu" class="dropdown-menu" role="menu" style="z-index: 100;">
+    <div id="category-dropdown-menu" class="dropdown-menu scrollable-menu" role="menu" style="z-index: 100;">
         <?php
         //get all categories from the database and add them to the dropdown menu
         $categoriesSQL='SELECT 
                             name 
                         FROM 
                             categories
+                        ORDER BY name ASC
                         ';
 
         try {
@@ -26,8 +27,10 @@ if(strpos($_SERVER['REQUEST_URI'], 'category_dropdown')) {
                 //Clean up multiple dashes or whitespaces
                 $itemId = preg_replace("/[\s-]+/", " ", $row['name']);
                 //Convert whitespaces and underscore to dash
-                $itemId = preg_replace("/[\s_]/", "-", $itemId);
-                echo '<a tabindex="-1" role="menuitem" id="category-item-'.$itemId.'" class="dropdown-item" "value="'.$row['name'].'" onkeyup="enterKeySelection(event.key,\'category-item-'.$itemId.'\')" onclick="updateCategory(\''.$row['name'].'\')">'.$row['name'].'</a>';
+                $itemId = preg_replace("/[\s_]/", "-", $itemId); ?>
+
+                <a tabindex="-1" role="menuitem" id="category-item-<?php echo $itemId; ?>" class="dropdown-item" value="<?php echo $row['name']; ?>" onkeyup="enterKeySelection(event.key, 'category-item-<?php echo $itemId; ?>')" onclick="updateCategory('<?php echo $row['name']; ?>')"><?php echo $row['name']; ?></a>
+                <?php 
             }
         }
         catch(PDOException $error) {
@@ -42,8 +45,10 @@ if(strpos($_SERVER['REQUEST_URI'], 'category_dropdown')) {
         //Clean up multiple dashes or whitespaces
         $itemId = preg_replace("/[\s-]+/", " ", $row['name']);
         //Convert whitespaces and underscore to dash
-        $itemId = preg_replace("/[\s_]/", "-", $itemId);
-        echo '<option value="category-item-'.$itemId.'">'.$row['name'].'</option>';
+        $itemId = preg_replace("/[\s_]/", "-", $itemId); ?>
+
+        <option value="category-item-<?php echo $itemId; ?>"><?php echo $row['name']; ?></option>
+        <?php
     }
 ?>
 </select> 

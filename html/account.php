@@ -8,7 +8,7 @@ $title = 'Account Details';
 
 //user needs to be logged in to view this page
 if(!$_SESSION['logged_in_flag']) {
-    header('Location: ../html/home.php'); 
+    header('Location: ../html/home.php?code=15'); 
 } 
 ?>
 </head>
@@ -35,7 +35,7 @@ if(!$_SESSION['logged_in_flag']) {
                                 <span style="font-weight: bold; margin-right: 5px;">Created On: </span><?php echo $_SESSION['date_created']; ?>
                             </div>
                             <div>
-                                <span style="font-weight: bold; margin-right: 5px;">Type: </span> <?php echo $_SESSION['access_level']; ?>
+                                <span style="font-weight: bold; margin-right: 5px;">Type: </span> <?php echo $_SESSION['access_desc']; ?>
                             </div>
                         </div>
                     </nav>
@@ -77,14 +77,14 @@ if(!$_SESSION['logged_in_flag']) {
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Update</button>                    </form>             
+                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Update</button>             
                     </form>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
-
+<?php require('modal_file_input.php'); ?>
 <?php require('footer.php'); ?>
 </body>
 </html>

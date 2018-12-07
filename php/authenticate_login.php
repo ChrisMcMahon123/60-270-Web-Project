@@ -34,6 +34,7 @@ if($response["email"] && $response["password"]) {
                         * 
                     FROM 
                         profiles 
+                    JOIN user_codes ON user_codes.user_code = profiles.user_code
                     WHERE 
                         email = :email 
                     AND 

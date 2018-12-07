@@ -23,22 +23,22 @@ if(isset($_FILES["avatar"]["tmp_name"])) {
         if($_FILES['avatar']['size'] < $maxFileSize) {
             //upload file is the correct size
             $response['avatar'] = true; 
-            $response['avatar_message'] = 'Image is valid'; 
+            $response['avatar_message'] = 'Avatar picture is valid'; 
         }
         else {
             //upload file is too large
             $response['avatar'] = false;
-            $response['avatar_message'] = 'Image is too large, please reduce the file size'; 
+            $response['avatar_message'] = 'Avatar picture is too large, please reduce the file size'; 
 
         }
     } else {
         $response['avatar'] = false;
-        $response['avatar_message'] = 'Not a valid image file'; 
+        $response['avatar_message'] = 'Avatar picture is not a valid image file'; 
     }
 }
 else {
     $response['avatar'] = false;
-    $response['avatar_message'] = 'No file selected'; 
+    $response['avatar_message'] = 'No avatar picture selected'; 
 }
 
 if(isset($_POST['password'])) {

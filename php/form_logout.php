@@ -10,6 +10,7 @@ unset($_SESSION['user_avatar']);
 unset($_SESSION['access_level']);
 unset($_SESSION['email']);
 unset($_SESSION['date_created']);
+unset($_SESSION['user_id']);
 
 header('Location: ../html/home.php?code=6'); 
 ?>

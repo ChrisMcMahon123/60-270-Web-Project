@@ -110,26 +110,26 @@ if(isset($_FILES['cover']['tmp_name'])) {
         if($_FILES['cover']['size'] < $maxFileSize) {
             //upload file is the correct size
             $response['cover'] = true; 
-            $response['cover_message'] = 'Image is valid'; 
+            $response['cover_message'] = 'Cover scan file is valid'; 
         }
         else {
             //upload file is too large
             $response['cover'] = false;
-            $response['cover_message'] = 'Image is too large, please reduce the file size'; 
+            $response['cover_message'] = 'Cover scan file is too large, please reduce the file size'; 
 
         }
     } else {
         $response['cover'] = false;
-        $response['cover_message'] = 'Not a valid image file'; 
+        $response['cover_message'] = 'Cover scan file is not a valid image file'; 
     }
 }
 else {
     $response['cover'] = false;
-    $response['cover_message'] = 'No file selected'; 
+    $response['cover_message'] = 'No cover scan file selected'; 
 }
 
 // Check if pdf file is an actual pdf file
-if(isset($_FILES['cover']['tmp_name'])) {
+if(isset($_FILES['file']['tmp_name'])) {
     if('application/pdf' == mime_content_type($_FILES['file']['tmp_name'])) {
         //upload file is an image
         if($_FILES['file']['size'] < $maxFileSize) {
@@ -140,16 +140,16 @@ if(isset($_FILES['cover']['tmp_name'])) {
         else {
             //upload file is too large
             $response['file'] = false;
-            $response['file_message'] = 'pdf is too large, please reduce the file size'; 
+            $response['file_message'] = 'Selected pdf file is too large, please reduce the file size'; 
         }
     } else {
         $response['file'] = false;
-        $response['file_message'] = 'Not a valid pdf file'; 
+        $response['file_message'] = 'Selected file is not a valid pdf file'; 
     }
 }
 else {
     $response['file'] = false;
-    $response['file_message'] = 'No file selected'; 
+    $response['file_message'] = 'No pdf file selected'; 
 }
 
 if($response['title'] && ($response['year'] === 1) && $response['author'] && ($response['category'] >= 1) && $response['file'] && $response['cover']) {

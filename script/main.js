@@ -13,6 +13,10 @@ $(document).ready(function () {
     if ($("#category-array").length != 0) {
         categoryArray = document.getElementById('category-array').options;
     }
+
+    if ($("#search-results").length != 0) {
+        validateSearchResults();
+    }
 });
 
 //when the window is resized, update the dropdown widths
@@ -29,6 +33,37 @@ function dropDownResize() {
     if ($("#category-dropdown-menu").length != 0) {
         $("#category-dropdown-menu").width($("#category-search").outerWidth());
     }
+}
+
+//will launch the model and assign it all the values of that specific textbook
+function openEditModal(callFrom) {
+    $("#title-upload").val($("#" + callFrom + "-title").val());
+    $("#year-upload").val($("#" + callFrom + "-year").val());
+    $("#author-upload").val($("#" + callFrom + "-author").val());
+    $("#category-search").val($("#" + callFrom + "-category").val());
+    $("#textbook-id").val($("#" + callFrom + "-id").val());
+    $("#modal-edit").modal();
+}
+
+function openUploaderModal(callFrom) {
+    $("#name-uploader").html($("#" + callFrom + "-name-uploader").val());
+    $("#uploader-avatar").attr("src", $("#" + callFrom + "-uploader-avatar").val());
+    $("#uploader-email").html($("#" + callFrom + "-uploader-email").val());
+    $("#uploader-joined").html($("#" + callFrom + "-uploader-joined").val());
+    $("#uploader-type").html($("#" + callFrom + "-uploader-type").val());
+    $("#modal-uploader").modal();
+}
+
+function openDeleteModal(callFrom) {
+    $("#delete-name").html($("#" + callFrom + "-title").val());
+    $("#delete-delete").attr("href", "../php/delete_textbook.php?id=" + $("#" + callFrom + "-id").val());
+    $("#modal-delete").modal();
+}
+
+//display custom error model for file inputs
+function openErrorFileModal(message) {
+    $("#error-message").html(message);
+    $("#modal-file-error").modal();
 }
 
 //update the text input when a dropdown entry is clicked
@@ -165,7 +200,6 @@ function validateAccountForm(form) {
 
             if (result["form-valid"]) {
                 console.log(form);
-                //alert("check form");
                 form.submit();
             }
             else {
@@ -200,7 +234,7 @@ function validateAccountForm(form) {
                 }
                 else {
                     $("#image-avatar").addClass("is-invalid");
-                    alert(result["avatar_message"]);
+                    openErrorFileModal(result["avatar_message"]);
                 }
 
                 displayPasswordValidationResults(result);
@@ -343,7 +377,7 @@ function validateSignUp(form) {
                 }
                 else {
                     $("#image-avatar").addClass("is-invalid");
-                    alert(result["avatar_message"]);
+                    openErrorFileModal(result["avatar_message"]);
                 }
 
                 displayPasswordValidationResults(result);
@@ -362,7 +396,6 @@ function validateUploadForm(form) {
 
             if (result["form-valid"]) {
                 console.log(form);
-                //alert("check form");
                 form.submit();
             }
             else {
@@ -429,12 +462,14 @@ function validateUploadForm(form) {
 
                 displayCategoryValidationResults(result);
 
+                var errorMessage = "";
+
                 if (result['cover']) {
                     $("#cover-upload").addClass("is-valid");
                 }
                 else {
                     $("#cover-upload").addClass("is-invalid");
-                    alert(result["cover_message"]);
+                    errorMessage = result["cover_message"] + "<br />";
                 }
 
                 if (result['file']) {
@@ -442,7 +477,11 @@ function validateUploadForm(form) {
                 }
                 else {
                     $("#file-upload").addClass("is-invalid");
-                    alert(result["file_message"]);
+                    errorMessage += result["file_message"];
+                }
+
+                if (!result['cover'] || !result['file']) {
+                    openErrorFileModal(errorMessage);
                 }
 
                 return false;
@@ -450,10 +489,6 @@ function validateUploadForm(form) {
         });
 
     return false;
-}
-
-function validateSearch() {
-    return true;
 }
 
 /*
@@ -564,6 +599,17 @@ function uploadAjaxCall() {
             console.log(event + " | " + jqxhr + " | " + settings + " | " + thrownError);
         }
     });
+}
+
+function validateSearchResults() {
+    $("#search-results").load("../php/form_search.php",
+        {
+            "title": $("#title-search").val(),
+            "year": $("#year-search").val(),
+            "author": $("#author-search").val(),
+            "category": $("#category-list-search").val(),
+        }
+    );
 }
 
 //used by the validation functions to update feedback on attempted form submission

@@ -1,13 +1,14 @@
 <?php
 //don't let the user view this page directly
 if(strpos($_SERVER['REQUEST_URI'], 'error_codes')) {
-    header('Location: home.php'); 
+    header('Location: home.php?code=14'); 
 }
 
 if(isset($_GET['code'])) { 
     //grab the error code from the database and display it
     $errorSQL=' SELECT 
-                    message_html 
+                    message,
+                    type 
                 FROM 
                     errors
                 WHERE 
@@ -23,8 +24,19 @@ if(isset($_GET['code'])) {
 
         $data = $databaseQuery->fetch();
     
-        if(!empty($data)) {
-            echo $data[0];
+        if(!empty($data)) { 
+            if($data[1] == 'Success') {
+                $style = 'color: white; background:#28a745;';
+            }
+            else {
+                $style = 'color: white; background:#dc3545;';
+            } ?>
+            <div class="flex-sm-fill m-2">
+                <ul class="list-group">
+                    <li class="list-group-item" style="<?php echo $style; ?>"><?php echo $data[0]; ?></li>
+                </ul>
+            </div>
+            <?php
         }
     }
     catch(PDOException $error) {

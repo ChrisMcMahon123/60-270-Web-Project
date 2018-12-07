@@ -7,7 +7,7 @@ $title = 'Login | Signup';
 <?php require('header.php'); 
 
 if($_SESSION['logged_in_flag']) {
-    header('Location: ../html/home.php'); 
+    header('Location: ../html/home.php?code=16'); 
 } 
 ?>
 </head>
@@ -85,7 +85,7 @@ if($_SESSION['logged_in_flag']) {
         </div>
     </nav>
 </div>
-
+<?php require('modal_file_input.php'); ?>
 <?php require('footer.php'); ?>
 </body>
 </html>
