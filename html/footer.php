@@ -6,6 +6,6 @@ if(strpos($_SERVER['REQUEST_URI'], 'footer')) {
 ?>
 <footer class="footer">
     <div class="container">
-        <span class="text-muted">Source code for the website available at <a href="https://github.com/ChrisMcMahon123/Web-Project" target="_blank" rel="noopener noreferrer">https://github.com/ChrisMcMahon123/Web-Project</a></span>
+        <span class="text-muted"><a href="https://github.com/ChrisMcMahon123/Web-Project" target="_blank" rel="noopener noreferrer">Source code for the website</a></span>
     </div>
 </footer>
