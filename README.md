@@ -6,6 +6,8 @@ This is a website with user access control. This website is paired with a MYySQL
 - Users can download and upload files.
 - Admins can edit and remove downloads.
 
+Icons from https://feathericons.com/
+
 Screenshot 1
 
 ![Screenshot 1](/screenshots/1.PNG?raw=true "Screenshot 1")
@@ -21,5 +23,3 @@ Screenshot 3
 Screenshot 4
 
 ![Screenshot 4](/screenshots/4.PNG?raw=true "Screenshot 4")
-
-Icons from https://feathericons.com/
